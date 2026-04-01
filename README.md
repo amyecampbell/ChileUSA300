@@ -3,7 +3,20 @@ Scripts used in USA300 SAE in Chile paper -- original versions of many of these 
 
 ## Assembly & QC
 
+<br/>
 
+[FastQC.sh](Assembly_QC/FastQC.sh)
+
+*Run with 279 raw read samples for isolates from Chile (in two batches, Nov '23 and Feb '24). Runs and outputs fastQC html reports.*
+
+<br/>
+
+
+[TrimReads.sh](Assembly_QC/TrimReads.sh)
+
+*Trim reads (10 bases off each end) using trim_galore, removing *
+
+<br/>
 
 [Altogether_QC.R](Assembly_QC/Altogether_QC.R)
 

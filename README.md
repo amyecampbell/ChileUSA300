@@ -14,7 +14,7 @@ Scripts used in USA300 SAE in Chile paper -- original versions of many of these 
 
 [TrimReads.sh](Assembly_QC/TrimReads.sh)
 
-*Trim reads (10 bases off each end) using trim_galore, removing *
+*Trim reads (10 bases off each end) using trim_galore, removing reads <50 bases in length*
 
 <br/>
 
@@ -24,7 +24,7 @@ Scripts used in USA300 SAE in Chile paper -- original versions of many of these 
 
 <br/>
 
-
+*Make Mashinspected.tab, which gives some more taxonomic context to the hits. This will allow us to make sense of the non-aureus hits we get during MASH contamination check step-- e.g., is it mapping to S. haemolyticus because it's contaminated/the wrong species? Or is it mapping to a very closely related plasmid or phage in S. haemolyticus?*
 
 [Altogether_QC.R](Assembly_QC/Altogether_QC.R)
 

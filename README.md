@@ -5,7 +5,7 @@ Scripts used in USA300 SAE in Chile paper -- original versions of many of these 
 
 <br/>
 
-[FastQC.sh](Assembly_QC/FastQC.sh)
+bash [FastQC.sh](Assembly_QC/FastQC.sh) FastQCoutput rawreads
 
 *Run with 279 raw read samples for isolates from Chile (in two batches, Nov '23 and Feb '24). Runs and outputs fastQC html reports.*
 

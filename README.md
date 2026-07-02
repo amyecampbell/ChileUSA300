@@ -53,15 +53,21 @@ Scripts used in USA300 SAE in Chile paper -- original versions of many of these 
 <br/>
 
 [MakeSnippyScript.sh](TreeScripts/MakeSnippyScript.sh)
-*Run Snippy on 433 ST8 genomes with GCA_000017085.1 as a reference genome.*
 
+<br/>
+
+*Run Snippy on 433 ST8 genomes with GCA_000017085.1 as a reference genome.*
 
 <br/>
 
 [SnippyAlignment_ST8_Phylogeny.sh](TreeScripts/SnippyAlignment_ST8_Phylogeny.sh)
 
-mkdir -p SnippyOutput
-mv \*core\* SnippyOutput/
+<br/>
+
+Snippy "core" output files were moved to SnippyOutput/ for downstream steps
+
+<br/>
+
 
 *Run RaxML*
 *Run ClonalFrameML*

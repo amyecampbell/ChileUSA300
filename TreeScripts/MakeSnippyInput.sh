@@ -1,6 +1,6 @@
 #!/bin/sh
 # Amy Campbell
-# Make SNIPPY input file for the full tree of ST105 isolates
+# Make SNIPPY input file from an input folder
 
 
 outputfile=$1

@@ -43,11 +43,16 @@ Scripts used in USA300 SAE in Chile paper -- original versions of many of these 
 
 ## Sequence typing
 
-*Run MLST to filter to ST8s and untyped SNVs of ST8*
+*Run MLST to assess % of each ST in 2022 isolates and to filter to ST8s and untyped SNVs of ST8*
 
 
 ## ST8 Phylogeny
-*Run Snippy steps*
+
+
+*Run Snippy on 433 ST8 genomes with GCA_000017085.1 as a reference genome.*
+
+<br/>
+
 *Run RaxML*
 *Run ClonalFrameML*
 *Run RaxML on recombination-masked phylogeny*

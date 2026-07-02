@@ -39,4 +39,41 @@ Scripts used in USA300 SAE in Chile paper -- original versions of many of these 
 
 <br/>
 
-*Put our 279 genomes from Chile (ST8 and non-ST8) and 62 StaphNET ST8 genomes through filters based on MASH contamination test, CheckM (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292). All StaphNET ST8-designated genomes pass, all but PP.3469, PP.3492, PP.3552, PP.3654 of the 279 Chilean MRSA genomes pass.*
+*Put our 279 genomes from Chile (ST8 and non-ST8) and 62 StaphNET ST8 genomes through filters based on MASH contamination test, CheckM (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292). All StaphNET ST8-designated genomes pass, all but PP.3469, PP.3492, PP.3552, PP.3654 of the 279 Chilean MRSA genomes pass. PP.3646 was removed from this analysis due to mapping uncertainty.*
+
+## Sequence typing
+
+*Run MLST to filter to ST8s and untyped SNVs of ST8*
+
+
+## ST8 Phylogeny
+*Run Snippy steps*
+*Run RaxML*
+*Run ClonalFrameML*
+*Run RaxML on recombination-masked phylogeny*
+*Run Treeshrink (repeat previous steps after removing ERR9884500)*
+*Run bootstrapping support*
+*Run Allele typing script to type by Bianco et al. Alleles*
+
+## SAE Tree: Phylogeny, Molecular Clock Analysis, Ancestral Reconstruction
+*Run Snippy steps*
+*Run RaxML*
+*Run ClonalFrameML*
+*Run RaxML on recombination-masked phylogeny*
+*Run bootstrapping support*
+*BactDating using tree*
+*Ancestral recon with PastML*
+*Data vis script for molecular clock and PastML results*
+
+## COMER analysis 
+*Run BLAST*
+*Run BLAST*
+*ReadMapAllGenomes.sh to align reads directly to SCCmec IVc --> COMER reference*
+*R script to visualize read depth aligned to SCC mec through COMER*
+
+## CURED
+  *Run with 100/100 specificity/sensitivity cutoff*
+ CURED_Main.py –case_control_file case_control.csv –extension fasta –genomes genomes/ 
+
+ *Run with 0 specificity cutoff*
+ CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 0 –extension fasta

@@ -1,7 +1,7 @@
 # ChileUSA300
 Scripts used in USA300 SAE in Chile paper -- original versions of many of these scripts are in MRSA_Chile repo
 
-# Assembly, QC, basic stats
+## Assembly, QC, basic stats
 
 <br/>
 
@@ -41,14 +41,22 @@ bash [MashInfo.sh](Assembly_QC/MashInfo.sh)
 
 *Put our 279 genomes from Chile (ST8 and non-ST8) and 62 StaphNET ST8 genomes through filters based on MASH contamination test, CheckM (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292). All StaphNET ST8-designated genomes pass, all but PP.3469, PP.3492, PP.3552, PP.3654 of the 279 Chilean MRSA genomes pass. PP.3646 was removed from this analysis due to mapping uncertainty. All additional ST8 *
 
-## Sequence typing
+### Sequence typing
 
 *Run MLST to assess % of each ST in 2022 isolates and to filter to ST8s and untyped SNVs of ST8*
 
 
-# Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
+## Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
 
-# Figure 2 -- ST8 Phylogeny
+
+### CURED
+  *Run with 100/100 specificity/sensitivity cutoff*
+ CURED_Main.py –case_control_file case_control.csv –extension fasta –genomes genomes/ 
+
+ *Run with 0 specificity cutoff*
+ CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 0 –extension fasta
+
+## Figure 2 -- ST8 Phylogeny
 
 [MakeSnippyInput.sh](TreeScripts/MakeSnippyInput.sh) SnippyInput.tab DataArchive/ST8Sequences/ 
 
@@ -79,9 +87,9 @@ Snippy "core" output files were moved to SnippyOutput/ for downstream steps
 *Run Allele typing script to type by Bianco et al. Alleles*
 
 
-# Figure 3 -- SAE Phylogeny, molecular clock analysis, ancestral reconstruction 
+## Figure 3 -- SAE Phylogeny, molecular clock analysis, ancestral reconstruction 
 
-## SAE Tree: Phylogeny, Molecular Clock Analysis, Ancestral Reconstruction
+### SAE Tree: Phylogeny, Molecular Clock Analysis, Ancestral Reconstruction
 *Run Snippy steps*
 *Run RaxML*
 *Run ClonalFrameML*
@@ -91,15 +99,10 @@ Snippy "core" output files were moved to SnippyOutput/ for downstream steps
 *Ancestral recon with PastML*
 *Data vis script for molecular clock and PastML results*
 
-## COMER analysis 
+## Figure 4 -- Coverage of COMER and Copper Survival 
+
+### COMER analysis 
 *Run BLAST*
 *Run BLAST*
 *ReadMapAllGenomes.sh to align reads directly to SCCmec IVc --> COMER reference*
 *R script to visualize read depth aligned to SCC mec through COMER*
-
-## CURED
-  *Run with 100/100 specificity/sensitivity cutoff*
- CURED_Main.py –case_control_file case_control.csv –extension fasta –genomes genomes/ 
-
- *Run with 0 specificity cutoff*
- CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 0 –extension fasta

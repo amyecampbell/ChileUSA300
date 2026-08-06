@@ -1,7 +1,7 @@
 # ChileUSA300
 Scripts used in USA300 SAE in Chile paper -- original versions of many of these scripts are in MRSA_Chile repo
 
-## Assembly & QC
+# Assembly, QC, basic stats
 
 <br/>
 
@@ -46,7 +46,9 @@ bash [MashInfo.sh](Assembly_QC/MashInfo.sh)
 *Run MLST to assess % of each ST in 2022 isolates and to filter to ST8s and untyped SNVs of ST8*
 
 
-## ST8 Phylogeny
+# Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
+
+# Figure 2 -- ST8 Phylogeny
 
 [MakeSnippyInput.sh](TreeScripts/MakeSnippyInput.sh) SnippyInput.tab DataArchive/ST8Sequences/ 
 
@@ -75,6 +77,9 @@ Snippy "core" output files were moved to SnippyOutput/ for downstream steps
 *Run Treeshrink (repeat previous steps after removing ERR9884500)*
 *Run bootstrapping support*
 *Run Allele typing script to type by Bianco et al. Alleles*
+
+
+# Figure 3 -- SAE Phylogeny, molecular clock analysis, ancestral reconstruction 
 
 ## SAE Tree: Phylogeny, Molecular Clock Analysis, Ancestral Reconstruction
 *Run Snippy steps*

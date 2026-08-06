@@ -39,7 +39,7 @@ bash [MashInfo.sh](Assembly_QC/MashInfo.sh)
 
 <br/>
 
-*Put our 279 genomes from Chile (ST8 and non-ST8) and 62 StaphNET ST8 genomes through filters based on MASH contamination test, CheckM (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292). All StaphNET ST8-designated genomes pass, all but PP.3469, PP.3492, PP.3552, PP.3654 of the 279 Chilean MRSA genomes pass. PP.3646 was removed from this analysis due to mapping uncertainty.*
+*Put our 279 genomes from Chile (ST8 and non-ST8) and 62 StaphNET ST8 genomes through filters based on MASH contamination test, CheckM (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292). All StaphNET ST8-designated genomes pass, all but PP.3469, PP.3492, PP.3552, PP.3654 of the 279 Chilean MRSA genomes pass. PP.3646 was removed from this analysis due to mapping uncertainty. All additional ST8 *
 
 ## Sequence typing
 

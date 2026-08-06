@@ -11,8 +11,9 @@ bash [FastQC.sh](Assembly_QC/FastQC.sh) FastQCoutput rawreads
 
 <br/>
 
-
+```
 bash [TrimReads.sh](Assembly_QC/TrimReads.sh) rawreads/ trimmedreads 1 2 
+```
 
 *Trim reads (10 bases off each end) using trim_galore, removing reads <50 bases in length*
 

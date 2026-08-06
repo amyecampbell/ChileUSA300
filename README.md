@@ -9,7 +9,7 @@ Scripts used in USA300 SAE in Chile paper -- original versions of many of these 
 bash Assembly_QC/FastQC.sh FastQCoutput rawreads
 ```
 
-*Run with 279 raw read samples for isolates from Chile (in two batches, Nov '23 and Feb '24). Runs and outputs fastQC html reports.*
+*Run FastQC with 279 raw read samples for isolates from Chile (in two batches, Nov '23 and Feb '24). Runs and outputs fastQC html reports.*
 
 <br/>
 
@@ -59,12 +59,16 @@ bash Assembly_QC/Altogether_QC.R
 ## Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
 
 
-### CURED
-  *Run with 100/100 specificity/sensitivity cutoff*
+### CURED to identify diagnostic restriction digests for USA300-SAE (via https://github.com/microbialARC/CURED)
+```
  CURED_Main.py –case_control_file case_control.csv –extension fasta –genomes genomes/ 
+```
+* Initially ran CURED main script with default 100/100 specificity/sensitivity cutoff, and did not find any 100% specific k-mers.*
 
- *Run with 0 specificity cutoff*
+```
  CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 0 –extension fasta
+```
+ *Re-ran with 0 specificity cutoff*
 
 ## Figure 2 -- ST8 Phylogeny
 

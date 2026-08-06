@@ -6,7 +6,7 @@ Scripts used in USA300 SAE in Chile paper -- original versions of many of these 
 <br/>
 
 ```
-bash [FastQC.sh](Assembly_QC/FastQC.sh) FastQCoutput rawreads
+bash (Assembly_QC/FastQC.sh) FastQCoutput rawreads
 ```
 
 *Run with 279 raw read samples for isolates from Chile (in two batches, Nov '23 and Feb '24). Runs and outputs fastQC html reports.*
@@ -14,21 +14,21 @@ bash [FastQC.sh](Assembly_QC/FastQC.sh) FastQCoutput rawreads
 <br/>
 
 ```
-bash [TrimReads.sh](Assembly_QC/TrimReads.sh) rawreads/ trimmedreads 1 2 
+bash (Assembly_QC/TrimReads.sh) rawreads/ trimmedreads 1 2 
 ```
 
 *Trim reads (10 bases off each end) using trim_galore, removing reads <50 bases in length*
 
 <br/>
 
-bash [Assemble.sh](Assembly_QC/Assemble.sh) trimmedreads ShovillOutput assemblies
+bash (Assembly_QC/Assemble.sh) trimmedreads ShovillOutput assemblies
 
 *Assemble our 279 initial genomes from Chile (ST8 and non-ST8) using Shovill in paired read mode. Set up to give the file path prefix to all the samples you want to assemble (so you can break it up by prefix). Subsequently, copy these all into /scr1/users/campbela12/ST105/contigs_all_preQC/ as <genomeID>.fasta*
 
 <br/>
 
 ```
-bash [MashInfo.sh](Assembly_QC/MashInfo.sh)
+bash (Assembly_QC/MashInfo.sh)
 ```
 
 *Make Mashinspected.tab, which gives some more taxonomic context to the hits. This will allow us to make sense of the non-aureus hits we get during MASH contamination check step-- e.g., is it mapping to S. haemolyticus because it's contaminated/the wrong species? Or is it mapping to a very closely related plasmid or phage in S. haemolyticus?*

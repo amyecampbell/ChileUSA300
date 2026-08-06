@@ -30,12 +30,12 @@ bash [MashInfo.sh](Assembly_QC/MashInfo.sh)
 
 <br/>
 
-[RunMash.sh](Assembly_QC/RunMash.sh)
+bash [RunMash.sh](Assembly_QC/RunMash.sh)
 *Run mash screen with winner-take-all strategy with sketch database k=21, s=1000, RefSeq release 70. This yields output files for each assembly (/scr1/users/campbela12/ST105/MashOutputs_All/ or DataArchive/MashOutputs_All/)* 
 
 <br/>
 
-[Altogether_QC.R](Assembly_QC/Altogether_QC.R)
+bash [Altogether_QC.R](Assembly_QC/Altogether_QC.R)
 
 <br/>
 

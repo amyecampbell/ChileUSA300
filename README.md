@@ -5,7 +5,9 @@ Scripts used in USA300 SAE in Chile paper -- original versions of many of these 
 
 <br/>
 
+```
 bash [FastQC.sh](Assembly_QC/FastQC.sh) FastQCoutput rawreads
+```
 
 *Run with 279 raw read samples for isolates from Chile (in two batches, Nov '23 and Feb '24). Runs and outputs fastQC html reports.*
 
@@ -25,18 +27,25 @@ bash [Assemble.sh](Assembly_QC/Assemble.sh) trimmedreads ShovillOutput assemblie
 
 <br/>
 
+```
 bash [MashInfo.sh](Assembly_QC/MashInfo.sh)
+```
 
 *Make Mashinspected.tab, which gives some more taxonomic context to the hits. This will allow us to make sense of the non-aureus hits we get during MASH contamination check step-- e.g., is it mapping to S. haemolyticus because it's contaminated/the wrong species? Or is it mapping to a very closely related plasmid or phage in S. haemolyticus?*
 
 <br/>
 
+```
 bash [RunMash.sh](Assembly_QC/RunMash.sh)
+```
+
 *Run mash screen with winner-take-all strategy with sketch database k=21, s=1000, RefSeq release 70. This yields output files for each assembly (/scr1/users/campbela12/ST105/MashOutputs_All/ or DataArchive/MashOutputs_All/)* 
 
 <br/>
 
+```
 bash [Altogether_QC.R](Assembly_QC/Altogether_QC.R)
+```
 
 <br/>
 

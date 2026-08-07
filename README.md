@@ -29,25 +29,41 @@ bash Assembly_QC/Assemble.sh trimmedreads ShovillOutput assemblies
 
 ```
 bash Assembly_QC/MashInfo.sh
-```
+grep '\.-p' /scr1/users/campbela12/downloadedDBs/Mashinspected.tab | sort -grk2 > MASHPlasmids_StartWithP.txt
 
-*Make Mashinspected.tab, which gives some more taxonomic context to the hits. This will allow us to make sense of the non-aureus hits we get during MASH contamination check step-- e.g., is it mapping to S. haemolyticus because it's contaminated/the wrong species? Or is it mapping to a very closely related plasmid or phage in S. haemolyticus?*
+grep 'unnamed-' /scr1/users/campbela12/downloadedDBs/Mashinspected.tab | sort -grk2 > MASHPlasmids_StartWithUnnamed.txt
+
+awk '{ if ($2 < 200000) { print $3} }' MASHPlasmids_StartWithP.txt > MASHPlasmids_StartWithP_Less200kb.txt
+
+awk '{ if ($2 < 200000) { print $3} }' MASHPlasmids_StartWithUnnamed.txt > MASHPlasmids_StartWithUnnamed_Less200kb.txt
+
+cat MASHPlasmids_StartWithP_Less200kb.txt MASHPlasmids_StartWithUnnamed_Less200kb.txt >> MASH_likely_plasmids.txt
 
 <br/>
+
+```
+
+*Make Mashinspected.tab, which gives some more taxonomic context to the hits. This will allow us to make sense of the non-aureus hits we get during MASH contamination check step-- e.g., is it mapping to S. haemolyticus because it's contaminated/the wrong species? Or is it mapping to a very closely related plasmid or phage in S. haemolyticus? Then, make a list of hit sources that are likely plasmids (start with the lowercase p and are less than 200kb, start with 'unnamed' and are less than 200kb (saved in DataArchive/MashFiles/MASH_likely_plasmids.txt *
 
 ```
 bash Assembly_QC/RunMash.sh
 ```
 
-*Run mash screen with winner-take-all strategy with sketch database k=21, s=1000, RefSeq release 70. This yields output files for each assembly (/scr1/users/campbela12/ST105/MashOutputs_All/ or DataArchive/MashOutputs_All/)* 
+*Run mash screen with winner-take-all strategy with sketch database k=21, s=1000, RefSeq release 70. This yields output files for each assembly (/scr1/users/campbela12/ST105/MashOutputs_All/, stored in DataArchive/MashOutputs_All/)* 
+
 
 <br/>
 
 ```
-bash Assembly_QC/Altogether_QC.R
-```
+python3 Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_Genomes_Tree "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/likelyPlasmids_Exclude_MASH.txt  /Users/campbela12/Documents/Planet/ST105/ST8/ST8_QC/MASHfullTree/
 
-<br/>
+python3 Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p MRSAChileAll_ExcludeLikelPlasmids "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MashOutputs_All
+
+python3 Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_staphNET "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt  /Users/campbela12/Documents/Planet/ST105/ST8/ST8_StaphNET-SA-First-Survey/MASHStaphNET
+```
+*Following mash screen, run contamination checker, excluding * 
+
+
 
 *Put our 279 genomes from Chile (ST8 and non-ST8) and 62 StaphNET ST8 genomes through filters based on MASH contamination test, CheckM (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292). All StaphNET ST8-designated genomes pass, all but PP.3469, PP.3492, PP.3552, PP.3654 of the 279 Chilean MRSA genomes pass. PP.3646 was removed from this analysis due to mapping uncertainty.*
 
@@ -58,17 +74,28 @@ bash Assembly_QC/Altogether_QC.R
 
 ## Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
 
-
 ### CURED to identify diagnostic restriction digests for USA300-SAE (via https://github.com/microbialARC/CURED)
+
 ```
  CURED_Main.py –case_control_file case_control.csv –extension fasta –genomes genomes/ 
 ```
+
 * Initially ran CURED main script with default 100/100 specificity/sensitivity cutoff, and did not find any 100% specific k-mers.*
 
 ```
  CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 0 –extension fasta
 ```
- *Re-ran with 0 specificity cutoff*
+
+ *Re-ran with 0 specificity cutoff to identify non-specific k-mers*
+```
+CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 0 –extension fasta
+```
+* Additional CURED steps here*
+
+### 
+
+
+
 
 ## Figure 2 -- ST8 Phylogeny
 
@@ -104,6 +131,7 @@ Snippy "core" output files were moved to SnippyOutput/ for downstream steps
 ## Figure 3 -- SAE Phylogeny, molecular clock analysis, ancestral reconstruction 
 
 ### SAE Tree: Phylogeny, Molecular Clock Analysis, Ancestral Reconstruction
+
 *Run Snippy steps*
 *Run RaxML*
 *Run ClonalFrameML*

@@ -63,15 +63,15 @@ python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p S
 ```
 
 *Following mash screen, run contamination checker (A. Moustafa's script, modified by AEC), excluding likely plasmids on the 279 2022 genomes, the StapNET genomes, and all genomes included in the ST8 tree. After check for MASH contamination, CheckM contamination and completeness (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292), the following genomes which had initially been included were removed from analysis:
-ERR134761 (Public ST8)
-ERR134840 (Public ST8)
-ERR137917 (Public ST8)
-ERR137937 (Public ST8)
-SRR497495 (Public ST8)
-SCL14023/PP.3469 (2022 genome)
-SCL14160/PP.3492 (2022 genome)
-SCL15359/PP.3552 (2022 genome)
-SCL16696/PP.3654  (2022 genome)
+ERR134761 (Public ST8),
+ERR134840 (Public ST8),
+ERR137917 (Public ST8),
+ERR137937 (Public ST8),
+SRR497495 (Public ST8),
+SCL14023/PP.3469 (2022 genome),
+SCL14160/PP.3492 (2022 genome),
+SCL15359/PP.3552 (2022 genome),
+SCL16696/PP.3654  (2022 genome),
 SCL16471/PP.3646 (removed for metadata mapping uncertainty)* 
 
 

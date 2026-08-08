@@ -43,7 +43,7 @@ cat MASHPlasmids_StartWithP_Less200kb.txt MASHPlasmids_StartWithUnnamed_Less200k
 
 ```
 
-*Make Mashinspected.tab, which gives some more taxonomic context to the hits. This will allow us to make sense of the non-aureus hits we get during MASH contamination check step-- e.g., is it mapping to S. haemolyticus because it's contaminated/the wrong species? Or is it mapping to a very closely related plasmid or phage in S. haemolyticus? Then, make a list of hit sources that are likely plasmids (start with the lowercase p and are less than 200kb, start with 'unnamed' and are less than 200kb (saved in DataArchive/MashFiles/MASH_likely_plasmids.txt *
+*Make Mashinspected.tab, which gives some more taxonomic context to the hits. This will allow us to make sense of the non-aureus hits we get during MASH contamination check step-- e.g., is it mapping to S. haemolyticus because it's contaminated/the wrong species? Or is it mapping to a very closely related plasmid in S. haemolyticus? Then, make a list of hit sources that are likely plasmids (start with the lowercase p and are less than 200kb, start with 'unnamed' and are less than 200kb (saved in DataArchive/MashFiles/MASH_likely_plasmids.txt) *
 
 ```
 bash Assembly_QC/RunMash.sh
@@ -55,17 +55,25 @@ bash Assembly_QC/RunMash.sh
 <br/>
 
 ```
-python3 Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_Genomes_Tree "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/likelyPlasmids_Exclude_MASH.txt  /Users/campbela12/Documents/Planet/ST105/ST8/ST8_QC/MASHfullTree/
+python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_Genomes_Tree "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/likelyPlasmids_Exclude_MASH.txt  /Users/campbela12/Documents/Planet/ST105/ST8/ST8_QC/MASHfullTree/
 
-python3 Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p MRSAChileAll_ExcludeLikelPlasmids "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MashOutputs_All
+python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p MRSAChileAll_ExcludeLikelPlasmids "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MashOutputs_All
 
-python3 Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_staphNET "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt  /Users/campbela12/Documents/Planet/ST105/ST8/ST8_StaphNET-SA-First-Survey/MASHStaphNET
+python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_staphNET "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt  /Users/campbela12/Documents/Planet/ST105/ST8/ST8_StaphNET-SA-First-Survey/MASHStaphNET
 ```
-*Following mash screen, run contamination checker, excluding * 
+*Following mash screen, run contamination checker (A. Moustafa's script, modified by AEC), excluding likely plasmids on the 279 2022 genomes, the StapNET genomes, and all genomes included in the ST8 tree. After check for MASH contamination, CheckM contamination and completeness (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292), the following genomes which had initially been included were removed from analysis:
+ERR134761 (Public ST8)
+ERR134840 (Public ST8)
+ERR137917 (Public ST8)
+ERR137937 (Public ST8)
+SRR497495 (Public ST8)
+SCL14023/PP.3469 (2022 genome)
+SCL14160/PP.3492 (2022 genome)
+SCL15359/PP.3552 (2022 genome)
+SCL16696/PP.3654  (2022 genome)
+SCL16471/PP.3646 (removed for metadata mapping uncertainty)* 
 
 
-
-*Put our 279 genomes from Chile (ST8 and non-ST8) and 62 StaphNET ST8 genomes through filters based on MASH contamination test, CheckM (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292). All StaphNET ST8-designated genomes pass, all but PP.3469, PP.3492, PP.3552, PP.3654 of the 279 Chilean MRSA genomes pass. PP.3646 was removed from this analysis due to mapping uncertainty.*
 
 ### Sequence typing
 
@@ -93,7 +101,6 @@ CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensit
 * Additional CURED steps here*
 
 ### 
-
 
 
 

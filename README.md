@@ -61,6 +61,7 @@ python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p M
 
 python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_staphNET "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt  /Users/campbela12/Documents/Planet/ST105/ST8/ST8_StaphNET-SA-First-Survey/MASHStaphNET
 ```
+
 *Following mash screen, run contamination checker (A. Moustafa's script, modified by AEC), excluding likely plasmids on the 279 2022 genomes, the StapNET genomes, and all genomes included in the ST8 tree. After check for MASH contamination, CheckM contamination and completeness (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292), the following genomes which had initially been included were removed from analysis:
 ERR134761 (Public ST8)
 ERR134840 (Public ST8)

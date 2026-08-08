@@ -21,11 +21,33 @@ bash Assembly_QC/TrimReads.sh rawreads/ trimmedreads 1 2
 
 <br/>
 
+```
 bash Assembly_QC/Assemble.sh trimmedreads ShovillOutput assemblies
+```
 
-*Assemble our 279 initial genomes from Chile (ST8 and non-ST8) using Shovill in paired read mode. Set up to give the file path prefix to all the samples you want to assemble (so you can break it up by prefix). Subsequently, copy these all into /scr1/users/campbela12/ST105/contigs_all_preQC/ as <genomeID>.fasta*
+*Assemble our 279 initial genomes from Chile (ST8 and non-ST8) using Shovill in paired read mode. Set up to give the file path prefix to all the samples you want to assemble (so you can break it up by prefix). Subsequently, copied these all into /scr1/users/campbela12/ST105/contigs_all_preQC/ as <genomeID>.fasta*
 
 <br/>
+
+### CheckM with S. aureus markers set (<5% contamination, >95% completeness)
+
+```
+
+# First run of 2022 isolates
+bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ST105/contigs/ /scr1/users/campbela12/ST105/CheckMoutput /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ST105/checkMoutput_Nov.txt
+
+# Second run of 2022 isolates
+bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ST105/contigs_Feb/ /scr1/users/campbela12/ST105/CheckMoutputFeb/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ST105/CheckM_Feb24
+
+# ST8 genomes (non-StaphNET)
+bash CheckMCall.sh /scr1/users/campbela12/ChileST108/Tree03_2024/Sequences/ /scr1/users/campbela12/ChileST108/Tree03_2024/CheckMoutput/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ChileST108/Tree03_2024/CheckM.txt
+
+# StaphNET ST8 genomes
+bash /home/campbela12/Documents/MRSA_Chile/assembly/CheckMCall.sh /scr1/users/campbela12/ChileST108/StaphNET/contigs/ /scr1/users/campbela12/ChileST108/StaphNET/CheckM/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ChileST108/StaphNET/CheckMStaphNET_ST8.txt
+
+
+```
+### MASH 
 
 ```
 bash Assembly_QC/MashInfo.sh

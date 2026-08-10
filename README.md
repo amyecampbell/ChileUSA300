@@ -126,6 +126,7 @@ PP.3598/SCL15958 -> ST5*
 
 ## Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
 
+
 ### CURED to identify diagnostic restriction digests for USA300-SAE (via https://github.com/microbialARC/CURED)
 
 ```
@@ -144,9 +145,14 @@ CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensit
 ```
 *Additional CURED steps here*
 
-### 
+### Visualization
 
+```
+Rscript Fig1a-c_PctSTbyYear.R
+```
+<br/>
 
+*Produce figure 1A-C with % ST and resistance data by year (stored in DataArchive/Susceptibility_ST_Data_1999_2022.csv), SAE by year (based on ST8 tree-assigned clades stored in DataArchive/Figure2/TreeBasedCladesST8March_V2.csv).*
 
 ## Figure 2 -- ST8 Phylogeny
 

@@ -116,6 +116,7 @@ bash TreeScripts/SequenceType.sh /scr1/users/campbela12/ChileST108/CURED/Contigs
 
 ```
 
+
 *Run MLST to assess % of each ST in 2022 isolates and to filter to ST8s and untyped SNVs of ST8. The following genomes were untyped by mlst, subsequently found via PubMLST searches (Feb 2024) to be SNVs and assigned to the following STs for downstream analysis purposes: PP.3354/SCL13027 -> ST5
 PP.3515/SCL14812 -> ST8
 PP.3555/SCL15367 -> ST105

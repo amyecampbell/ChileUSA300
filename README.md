@@ -150,9 +150,8 @@ CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensit
 ```
 Rscript Fig1a-c_PctSTbyYear.R
 ```
-<br/>
 
-*Produce figure 1A-C with % ST and resistance data by year (stored in DataArchive/Susceptibility_ST_Data_1999_2022.csv), SAE by year (based on ST8 tree-assigned clades stored in DataArchive/Figure2/TreeBasedCladesST8March_V2.csv).*
+*Produce figure 1A-C with % ST and resistance data by year (stored in DataArchive/Susceptibility_ST_Data_1999_2022.csv), SAE by year (based on ST8 tree-assigned clades stored in DataArchive/Figure2/TreeBasedCladesST8March_V2.csv and CURED estimate of 22.8% in 2023).*
 
 ## Figure 2 -- ST8 Phylogeny
 

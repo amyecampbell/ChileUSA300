@@ -155,23 +155,34 @@ Rscript Fig1a-c_PctSTbyYear.R
 
 ## Figure 2 -- ST8 Phylogeny
 
-[MakeSnippyInput.sh](TreeScripts/MakeSnippyInput.sh) SnippyInput.tab DataArchive/ST8Sequences/ 
+```
+
+# Same sequences are in DataArchive/ST8Sequences/
+bash TreeScripts/MakeSnippyInput.sh Snippy_ST8_04_24.tab /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/Sequences/
+
+bash TreeScripts/MakeSnippyScript.sh  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/GCA_000017085.1_reference.fasta Snippy_ST8_04_24.tab SnippyAlignment_ST8_Phylogeny.sh
+
+sbatch -c 16 --mem=16G -t 12:00:00 SnippyAlignment_ST8_Phylogeny.sh
+
+mv *core*  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/
+
+sbatch /home/campbela12/Documents/MRSA_Chile/Trees/SnippyClean.sh  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full.aln  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full_cleaned.aln
+
+# Run on cluster with 16G memory and 16 threads
+bash SnippyAlignment_ST8_Phylogeny.sh
+
+mv *core*  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/
+
+sbatch /home/campbela12/Documents/MRSA_Chile/Trees/SnippyClean.sh /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full.aln  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full_cleaned.aln
+
+```
 
 <br/>
 
-[MakeSnippyScript.sh](TreeScripts/MakeSnippyScript.sh)
+*Write a script that will run Snippy on 433 ST8 genomes with GCA_000017085.1 as a reference genome. Outputs SnippyAlignment_ST8_Phylogeny.sh (originally run with path /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/Sequences/ instead of DataArchive/ST8Sequences/) *
 
-<br/>
 
-*Run Snippy on 433 ST8 genomes with GCA_000017085.1 as a reference genome.*
-
-<br/>
-
-[SnippyAlignment_ST8_Phylogeny.sh](TreeScripts/SnippyAlignment_ST8_Phylogeny.sh)
-
-<br/>
-
-Snippy "core" output files were moved to SnippyOutput/ for downstream steps
+*Run Snippy alignment with GCA_000017085.1 as a reference genome. Following this Snippy "core" output files were moved to SnippyOutput/ for downstream steps*
 
 <br/>
 

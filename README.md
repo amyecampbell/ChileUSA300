@@ -96,7 +96,9 @@ SCL15359/PP.3552 (2022 genome),
 SCL16696/PP.3654  (2022 genome),
 SCL16471/PP.3646 (removed for metadata mapping uncertainty)* 
 
+### TreeNET
 
+*Note: this step was actually performed after the original run of the ST8 phylogeny scripts, and was used to identify *
 
 ### Sequence typing
 
@@ -125,7 +127,7 @@ SCL16471/PP.3646 (removed for metadata mapping uncertainty)*
 ```
 CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 0 –extension fasta
 ```
-* Additional CURED steps here*
+*Additional CURED steps here*
 
 ### 
 

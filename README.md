@@ -40,10 +40,10 @@ bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ST105/contigs/ /scr1/users
 bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ST105/contigs_Feb/ /scr1/users/campbela12/ST105/CheckMoutputFeb/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ST105/CheckM_Feb24
 
 # ST8 genomes (non-StaphNET)
-bash CheckMCall.sh /scr1/users/campbela12/ChileST108/Tree03_2024/Sequences/ /scr1/users/campbela12/ChileST108/Tree03_2024/CheckMoutput/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ChileST108/Tree03_2024/CheckM.txt
+bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ChileST108/Tree03_2024/Sequences/ /scr1/users/campbela12/ChileST108/Tree03_2024/CheckMoutput/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ChileST108/Tree03_2024/CheckM.txt
 
 # StaphNET ST8 genomes
-bash /home/campbela12/Documents/MRSA_Chile/assembly/CheckMCall.sh /scr1/users/campbela12/ChileST108/StaphNET/contigs/ /scr1/users/campbela12/ChileST108/StaphNET/CheckM/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ChileST108/StaphNET/CheckMStaphNET_ST8.txt
+bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ChileST108/StaphNET/contigs/ /scr1/users/campbela12/ChileST108/StaphNET/CheckM/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ChileST108/StaphNET/CheckMStaphNET_ST8.txt
 
 
 ```
@@ -108,12 +108,12 @@ sh Assembly_QC//RunTreeShrink.sh
 ### Sequence typing
 
 ```
-bash TreeScripts/SequenceType.sh /scr1/users/campbela12/ST105/contigs_Feb/ /scr1/users/campbela12/ST105/ST105Tree_02_2024/ MLST_FebGenomes.txt
+bash AlleleTyping/SequenceType.sh /scr1/users/campbela12/ST105/contigs_Feb/ /scr1/users/campbela12/ST105/ST105Tree_02_2024/ MLST_FebGenomes.txt
 
-bash TreeScripts/SequenceType.sh /scr1/users/campbela12/ST105/contigs/ /scr1/users/campbela12/ST105/
+bash AlleleTyping/SequenceType.sh /scr1/users/campbela12/ST105/contigs/ /scr1/users/campbela12/ST105/
 
 # Run later (after construction of ST8 phylogeny) to determine accuracy of CURED method
-bash TreeScripts/SequenceType.sh /scr1/users/campbela12/ChileST108/CURED/Contigs2023/SCLs/  /scr1/users/campbela12/ChileST108/CURED/ SCLmlst.txt 
+bash AlleleTyping/SequenceType.sh /scr1/users/campbela12/ChileST108/CURED/Contigs2023/SCLs/  /scr1/users/campbela12/ChileST108/CURED/ SCLmlst.txt 
 
 ```
 
@@ -168,7 +168,7 @@ bash SnippyAlignment_ST8_Phylogeny.sh
 # Moved output alignments to tree folder
 mv *core*  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/
 
-sbatch /home/campbela12/Documents/MRSA_Chile/Trees/SnippyClean.sh /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full.aln  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full_cleaned.aln
+bash TreeScripts/SnippyClean.sh /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full.aln  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full_cleaned.aln
 
 ```
 
@@ -179,14 +179,54 @@ sbatch /home/campbela12/Documents/MRSA_Chile/Trees/SnippyClean.sh /scr1/users/ca
 ### RAxML 8.2.13 
 
 ```
-sbatch -c 72 -t 144:00:00 --mem=90G /home/campbela12/Documents/MRSA_Chile/Trees/RaxML_FirstRun.sh  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full_cleaned.aln 72 RaxML_ST8_April_PreCFML 100
+# Provide job with 72 threads, 90G of memory via sbatch -c 72 --mem=90G
+bash TreeScripts/RaxML_FirstRun.sh  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full_cleaned.aln 72 RaxML_ST8_April_PreCFML 100
 ```
 
-*Run RaxML*
-*Run ClonalFrameML*
+*Run RaxML with 100 random starts and GTRGAMMA model*
+
+
+### ClonalFrameML 1.12 
+
+```
+# Provided with via 72G memory via sbatch --mem=72G
+bash TreeScripts/RunCFML.sh /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/Trees/RAxML_bestTree.RaxML_ST8_April_PreCFML /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full_cleaned.aln ST8AprilCFML
+
+# Move all outputs of RaxML to the tree folder
+mv *ST8AprilCFML* /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/
+```
+*Run clonalframeML on snippy alignment and ML phylogeny to mask recombinant regions. Outputs ST8AprilCFML.filtered.fasta*
+
+###  RAxML 8.2.13 again 
+
+*Run RAxML on recombination-masked snippy alignment*
+
+```
+# Provide with 72 threads and 90G memory via sbatch -c 72 ---mem=90G 
+bash TreeScripts/RaxML_FirstRun.sh  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/ST8AprilCFML.filtered.fasta 72 RaxML_ST8_April_PostCFML 100
+
+```
 *Run RaxML on recombination-masked phylogeny*
-*Run Treeshrink (repeat previous steps after removing ERR9884500)*
-*Run bootstrapping support*
+
+
+```
+# Provide with 64 threads and 96G of memory
+TreeScripts/RaxML_Bootstrap.sh /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/ST8AprilCFML.filtered.fasta 64 RaxML_ST8_April_PostCFML RaxML_ST8_April_PostCFML_BootstrapTree RaxML_ST8_April_PostCFML_BootstrapParts 100
+
+```
+*Run bootstrapping support with 100 partitions*
+
+
+
+### Identify presence of [Bianco et al. (2023)'s](https://doi.org/10.3389/fcimb.2023.1081070) diagnostic alleles for USA300 clades in ST8 tree genomes
+
+```
+sbatch -c 16 --mem=16G -t 72:00:00
+
+bash Bakta_ByFileList.sh SequenceList.txt /scr1/users/campbela12/ChileST108/Bakta/ /scr1/users/campbela12/ChileST108/GFFs/ /scr1/users/campbela12/ChileST108/ST8Genomes/
+```
+*Annotate genomes on ST8 tree *
+
 *Run Allele typing script to type by Bianco et al. Alleles*
 
 

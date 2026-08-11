@@ -107,7 +107,6 @@ sh Assembly_QC//RunTreeShrink.sh
 
 ### Sequence typing
 
-
 ```
 bash TreeScripts/SequenceType.sh /scr1/users/campbela12/ST105/contigs_Feb/ /scr1/users/campbela12/ST105/ST105Tree_02_2024/ MLST_FebGenomes.txt
 
@@ -156,14 +155,14 @@ Rscript Fig1a-c_PctSTbyYear.R
 
 ## Figure 2 -- ST8 Phylogeny
 
+### Snippy 4.6.0
 ```
-
 # Same sequences are in DataArchive/ST8Sequences/
 bash TreeScripts/MakeSnippyInput.sh Snippy_ST8_04_24.tab /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/Sequences/
 
 bash TreeScripts/MakeSnippyScript.sh  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/GCA_000017085.1_reference.fasta Snippy_ST8_04_24.tab SnippyAlignment_ST8_Phylogeny.sh
 
-# Run on cluster with 16G memory and 16 threads (sbatch -c 16 --mem=16G)
+# Manually add conda activation line, then run on cluster with 16G memory and 16 threads (sbatch -c 16 --mem=16G)
 bash SnippyAlignment_ST8_Phylogeny.sh
 
 # Moved output alignments to tree folder
@@ -173,15 +172,15 @@ sbatch /home/campbela12/Documents/MRSA_Chile/Trees/SnippyClean.sh /scr1/users/ca
 
 ```
 
-<br/>
-
-*Write a script that will run Snippy on 433 ST8 genomes with GCA_000017085.1 as a reference genome. Outputs SnippyAlignment_ST8_Phylogeny.sh (originally run with path /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/Sequences/ instead of DataArchive/ST8Sequences/) *
-
-
-*Run Snippy alignment with GCA_000017085.1 as a reference genome. Following this Snippy "core" output files were moved to SnippyOutput/ for downstream steps*
+*Write a script that will run Snippy on 433 ST8 genomes with GCA_000017085.1 as a reference genome (SnippyAlignment_ST8_Phylogeny) and run it. Move the alignments output by snippy into a folder called ST8FullTree_04_2024, and then run the snippy-clean function to replace special characters with N for RaxML's use.*
 
 <br/>
 
+### RAxML 8.2.13 
+
+```
+sbatch -c 72 -t 144:00:00 --mem=90G /home/campbela12/Documents/MRSA_Chile/Trees/RaxML_FirstRun.sh  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full_cleaned.aln 72 RaxML_ST8_April_PreCFML 100
+```
 
 *Run RaxML*
 *Run ClonalFrameML*

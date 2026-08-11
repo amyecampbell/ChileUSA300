@@ -65,7 +65,7 @@ cat MASHPlasmids_StartWithP_Less200kb.txt MASHPlasmids_StartWithUnnamed_Less200k
 
 ```
 
-*Make Mashinspected.tab, which gives some more taxonomic context to the hits. This will allow us to make sense of the non-aureus hits we get during MASH contamination check step-- e.g., is it mapping to S. haemolyticus because it's contaminated/the wrong species? Or is it mapping to a very closely related plasmid in S. haemolyticus? Then, make a list of hit sources that are likely plasmids (start with the lowercase p and are less than 200kb, start with 'unnamed' and are less than 200kb (saved in DataArchive/MashFiles/MASH_likely_plasmids.txt)*
+*Make Mashinspected.tab, which gives some more taxonomic context to the hits (tells us the full name of the sequence). This will allow us to make sense of the non-aureus hits we get during MASH contamination check step-- e.g., is it mapping to S. haemolyticus because it's contaminated/the wrong species? Or is it mapping to a very closely related plasmid in S. haemolyticus? Then, make a list of hit sources that are likely plasmids (start with the lowercase p and are less than 200kb, start with 'unnamed' and are less than 200kb (saved in DataArchive/MashFiles/MASH_likely_plasmids.txt)*
 
 ```
 bash Assembly_QC/RunMash.sh
@@ -107,17 +107,18 @@ sh Assembly_QC//RunTreeShrink.sh
 
 ### Sequence typing
 
+
 ```
 bash TreeScripts/SequenceType.sh /scr1/users/campbela12/ST105/contigs_Feb/ /scr1/users/campbela12/ST105/ST105Tree_02_2024/ MLST_FebGenomes.txt
 
 bash TreeScripts/SequenceType.sh /scr1/users/campbela12/ST105/contigs/ /scr1/users/campbela12/ST105/
 
+# Run later (after construction of ST8 phylogeny) to determine accuracy of CURED method
 bash TreeScripts/SequenceType.sh /scr1/users/campbela12/ChileST108/CURED/Contigs2023/SCLs/  /scr1/users/campbela12/ChileST108/CURED/ SCLmlst.txt 
 
 ```
 
-
-*Run MLST to assess % of each ST in 2022 isolates and to filter to ST8s and untyped SNVs of ST8. The following genomes were untyped by mlst, subsequently found via PubMLST searches (Feb 2024) to be SNVs and assigned to the following STs for downstream analysis purposes: PP.3354/SCL13027 -> ST5
+*Run MLST to assess % of each ST in 2022 isolates and to filter to ST8s and untyped SNVs of ST8 (run separately on the three different sequencing batches). The following genomes were untyped by mlst, subsequently found via PubMLST searches (Feb 2024) to be SNVs and assigned to the following STs for downstream analysis purposes: PP.3354/SCL13027 -> ST5
 PP.3515/SCL14812 -> ST8
 PP.3555/SCL15367 -> ST105
 PP.3589/SCL15881 -> ST105
@@ -162,15 +163,10 @@ bash TreeScripts/MakeSnippyInput.sh Snippy_ST8_04_24.tab /scr1/users/campbela12/
 
 bash TreeScripts/MakeSnippyScript.sh  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/GCA_000017085.1_reference.fasta Snippy_ST8_04_24.tab SnippyAlignment_ST8_Phylogeny.sh
 
-sbatch -c 16 --mem=16G -t 12:00:00 SnippyAlignment_ST8_Phylogeny.sh
-
-mv *core*  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/
-
-sbatch /home/campbela12/Documents/MRSA_Chile/Trees/SnippyClean.sh  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full.aln  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full_cleaned.aln
-
-# Run on cluster with 16G memory and 16 threads
+# Run on cluster with 16G memory and 16 threads (sbatch -c 16 --mem=16G)
 bash SnippyAlignment_ST8_Phylogeny.sh
 
+# Moved output alignments to tree folder
 mv *core*  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/
 
 sbatch /home/campbela12/Documents/MRSA_Chile/Trees/SnippyClean.sh /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full.aln  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/core.full_cleaned.aln

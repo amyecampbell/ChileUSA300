@@ -30,7 +30,7 @@ lightgreen="#B3DE69"
 lightblue="#A6CEE3"
 lightorange="#FDB462"
 
-AllIsolates = read.csv("./DataArchive/Susceptibility_ST_Data_1999_2022.csv")
+AllIsolates = read.csv("./DataArchive/Figure 1/Susceptibility_ST_Data_1999_2022.csv")
 AllIsolatesDedup = AllIsolates %>% filter(IncludeDeduplicated == 1)
 
 

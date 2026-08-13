@@ -121,11 +121,3 @@ TreeVisRect = TreeVisRect + geom_tiplab(size=8) +geom_tippoint(mapping=aes(color
 
 ggsave(TreeVisRect, file="./FigureOutput/Figure4_RectangularTree.pdf",height=15, width=10)
 
-
-###################
-# Copper in Water
-###################
-
-
-
-

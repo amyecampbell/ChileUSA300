@@ -253,13 +253,54 @@ Rscript Figure2_Table1_BiancoAlleleTesting.R
 
 ### SAE Tree: Phylogeny, Molecular Clock Analysis, Ancestral Reconstruction
 
+```
+sbatch /home/campbela12/Documents/MRSA_Chile/Trees/MakeSnippyInput.sh Snippy_ST8_SAE_V4.tab /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/Sequences/
+
+sbatch /home/campbela12/Documents/MRSA_Chile/Trees/MakeSnippyScript.sh /scr1/users/campbela12/ChileST108/MolecularClock/CA12.fasta Snippy_ST8_SAE_V4.tab RunSnippy_ST8_SAE_V4.sh
+
+sbatch -c 16 --mem=20G -t 12:00:00 RunSnippy_ST8_SAE_V4.sh
+
+mv *core*  /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/
+
+sbatch /home/campbela12/Documents/MRSA_Chile/Trees/SnippyClean.sh  /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/core.full.aln  /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/core.full_cleaned.aln
+```
 *Run Snippy steps*
+
+
+```
+sbatch -c 64 -t 72:00:00 --mem=64G /home/campbela12/Documents/MRSA_Chile/Trees/RaxML_FirstRun.sh   /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/core.full_cleaned.aln 64 RaxML_SAE_April_V4 100
+```
 *Run RaxML*
+
+
+```
+sbatch  --mem=64G -t 48:00:00 /home/campbela12/Documents/MRSA_Chile/Trees/RunCFML.sh /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/Trees/RAxML_bestTree.RaxML_SAE_April_V4  /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/core.full_cleaned.aln SAE_CFML_V4
+```
 *Run ClonalFrameML*
-*Run RaxML on recombination-masked phylogeny*
-*Run bootstrapping support*
-*BactDating using tree*
-*Ancestral recon with PastML*
+
+
+```
+sbatch -c 64 -t 72:00:00 --mem=64G /home/campbela12/Documents/MRSA_Chile/Trees/RaxML_FirstRun.sh /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/SAE_CFML_V4.filtered.fasta 64 RaxML_SAE_April_V4_PostCFML 100
+
+sbatch -c 64 -t  24:00:00 --mem=64G /home/campbela12/Documents/MRSA_Chile/Trees/RaxML_Bootstrap.sh /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/SAE_CFML_V4.filtered.fasta 64 RaxML_SAE_April_V4_PostCFML RaxML_SAE_April_V4_PostCFML_BootstrapTree RaxML_SAE_April_V4_PostCFML_BootstrapParts 100
+```
+*Run RaxML on recombination-masked phylogeny + bootstrapping*
+
+
+```
+/MRSA_Chile/ST8/MolecularClock/BactDatingMultipleModels.R
+# files:  #/Users/campbela12/Documents/Planet/ST105/ST8/MolecularClock/StrictClock100MillDatesFixed.nex
+#/Users/campbela12/Documents/Planet/ST105/ST8/MolecularClock/StrictGammaMolecularClockTree_ClonalPatientsCollapsed_tall.pdf
+#RDA object: /Users/campbela12/Documents/Planet/ST105/ST8/MolecularClock/strictgammarun100million_RootFixed_April_V4.rda
+```
+*BactDating using tree from RAxML*
+
+```
+PastML_Run_Full_MolecClock.sh
+```
+*Ancestral recon with PastML using BactDating output tree*
+
+
 *Data vis script for molecular clock and PastML results*
 
 ## Figure 4 -- Coverage of COMER and Copper Survival 

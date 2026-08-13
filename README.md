@@ -296,7 +296,7 @@ sbatch -c 64 -t  24:00:00 --mem=64G /home/campbela12/Documents/MRSA_Chile/Trees/
 *BactDating using tree from RAxML*
 
 ```
-PastML_Run_Full_MolecClock.sh
+PastML_Run_Full_MolecClock.sh #  strictClock100MillTree_StrippedDown.newick is StrictClock100MillDatesFixed.newick without HPDs
 ```
 *Ancestral recon with PastML using BactDating output tree*
 

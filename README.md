@@ -225,9 +225,28 @@ sbatch -c 16 --mem=16G -t 72:00:00
 
 bash Bakta_ByFileList.sh SequenceList.txt /scr1/users/campbela12/ChileST108/Bakta/ /scr1/users/campbela12/ChileST108/GFFs/ /scr1/users/campbela12/ChileST108/ST8Genomes/
 ```
-*Annotate genomes on ST8 tree *
+*Annotate genomes on ST8 tree*
 
-*Run Allele typing script to type by Bianco et al. Alleles*
+```
+# ST8 genomes from 2022 collection
+python3 Allele_Typing_BiancoEtAl.py
+
+# Pre-2022 genomes from SCL collection
+python3 Allele_Typing_BiancoEtAl_Pre2022.py
+
+# ST8 genomes from StaphNET (10.1099/mgen.0.001020)
+python3 Allele_Typing_BiancoEtAl_staphNET.py
+
+# All genomes on ST8 tree (above 3 groups +)
+python3 AlleleTyping/Allele_Typing_BiancoEtAl_AllST8s.py
+
+```
+*Run Allele typing script to type by Bianco et al. Alleles -- outputs presence (1) or absence(0) of each allele in each genome*
+
+```
+Rscript Figure2_Table1_BiancoAlleleTesting.R
+```
+*Make mappings of leaf to Bianco et al. (2023) allele presence for ITOL visualization, calculate sensitivity/specificity of alleles.*
 
 
 ## Figure 3 -- SAE Phylogeny, molecular clock analysis, ancestral reconstruction 

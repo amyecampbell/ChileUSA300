@@ -290,17 +290,19 @@ sbatch -c 64 -t  24:00:00 --mem=64G /home/campbela12/Documents/MRSA_Chile/Trees/
 
 
 ```
-/MRSA_Chile/ST8/MolecularClock/BactDatingMultipleModels.R
+MolecularClockTree/BactDating.R
+```
+
 # files:  #/Users/campbela12/Documents/Planet/ST105/ST8/MolecularClock/StrictClock100MillDatesFixed.nex
 #/Users/campbela12/Documents/Planet/ST105/ST8/MolecularClock/StrictGammaMolecularClockTree_ClonalPatientsCollapsed_tall.pdf
 #RDA object: /Users/campbela12/Documents/Planet/ST105/ST8/MolecularClock/strictgammarun100million_RootFixed_April_V4.rda
 ```
-*BactDating using tree from RAxML*
+*BactDating using tree from RAxML. Outputs strictgammarun100million_RootFixed_April_V4.rda (R data object) and StrictClock100MillDatesFixed.newick (edited in FigTree v1.4.4 to produce strictClock100MillTree_StrippedDown.newick which replaces HPD with single branch length estimate)*
 
 ```
-PastML_Run_Full_MolecClock.sh #  strictClock100MillTree_StrippedDown.newick is StrictClock100MillDatesFixed.newick without HPDs
+MolecularClockTree/PastML_Run_Full_MolecClock.sh 
 ```
-*Ancestral recon with PastML using BactDating output tree*
+*Ancestral recon with PastML using BactDating output tree. Outputs DataArchive/Figure 3/fullSAEpastMLoutputMolecClock/ which includes marginal probabilities file marginal_probabilities.character_Location.model_F81.tab needed for visualization*
 
 
 *Data vis script for molecular clock and PastML results*

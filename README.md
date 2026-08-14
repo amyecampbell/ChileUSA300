@@ -50,7 +50,9 @@ bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ChileST108/StaphNET/contig
 ### MASH 
 
 ```
+# RefSeqSketchesDefaults.msh is the k=21, s=1000 mash sketch database for RefSeq release 70 (255MB)
 bash Assembly_QC/MashInfo.sh
+
 grep '\.-p' /scr1/users/campbela12/downloadedDBs/Mashinspected.tab | sort -grk2 > MASHPlasmids_StartWithP.txt
 
 grep 'unnamed-' /scr1/users/campbela12/downloadedDBs/Mashinspected.tab | sort -grk2 > MASHPlasmids_StartWithUnnamed.txt

@@ -105,6 +105,9 @@ sh Assembly_QC//RunTreeShrink.sh
 
 *Root a preliminary phylogeny and then use the resulting phylogeny to identify outlier branches. Note: this step was actually performed after the original run of the ST8 phylogeny scripts, and was used to identify that ERR9884473 had an outlier branch length(subsequently removed).*
 
+
+## Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
+
 ### Sequence typing
 
 ```
@@ -122,9 +125,6 @@ PP.3515/SCL14812 -> ST8
 PP.3555/SCL15367 -> ST105
 PP.3589/SCL15881 -> ST105
 PP.3598/SCL15958 -> ST5*
-
-
-## Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
 
 
 ### CURED to identify diagnostic restriction digests for USA300-SAE (via https://github.com/microbialARC/CURED)
@@ -197,7 +197,7 @@ mv *ST8AprilCFML* /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/
 ```
 *Run clonalframeML on snippy alignment and ML phylogeny to mask recombinant regions. Outputs ST8AprilCFML.filtered.fasta*
 
-###  RAxML 8.2.13 again 
+###  RAxML 8.2.13 following clonal frame ML 
 
 *Run RAxML on recombination-masked snippy alignment*
 

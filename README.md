@@ -223,8 +223,7 @@ TreeScripts/RaxML_Bootstrap.sh /scr1/users/campbela12/ChileST108/ST8FullTree_04_
 ### Identify presence of [Bianco et al. (2023)'s](https://doi.org/10.3389/fcimb.2023.1081070) diagnostic alleles for USA300 clades in ST8 tree genomes
 
 ```
-sbatch -c 16 --mem=16G -t 72:00:00
-
+# 16 threads 16G memory
 bash Bakta_ByFileList.sh SequenceList.txt /scr1/users/campbela12/ChileST108/Bakta/ /scr1/users/campbela12/ChileST108/GFFs/ /scr1/users/campbela12/ChileST108/ST8Genomes/
 ```
 *Annotate genomes on ST8 tree*
@@ -256,46 +255,50 @@ Rscript Figure2_Table1_BiancoAlleleTesting.R
 ### Phylogeny
 
 ```
-# Where Sequences/ contains the 155 sequences listed in IsolatesUsed/Figures3_4_SAE Phylogeny 
+# Where Sequences/ contains the 154 sequences listed in "IsolatesUsed/Figures3_4_SAE Phylogeny" except for CA12.fasta, which is kept separate as the reference. 
 bash TreeScripts/MakeSnippyInput.sh Snippy_ST8_SAE_V4.tab MolecularClockUTD_V2/Sequences/
 
-bash TreeScripts/MakeSnippyScript.sh CA12.fasta Snippy_ST8_SAE_V4.tab RunSnippy_ST8_SAE_V4.sh
+bash TreeScripts/MakeSnippyScript.sh CA12.fasta Snippy_ST8_SAE_V4.tab MolecularClockTree/RunSnippy_ST8_SAE_V4.sh
 
 # 16 threads and 20G memory
-bash TreeScripts/RunSnippy_ST8_SAE_V4.sh
+bash MolecularClockTree/RunSnippy_ST8_SAE_V4.sh
 
-mv *core*  /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/
+mv *core*  MolecularClockUTD_V2/
 
-sbatch /home/campbela12/Documents/MRSA_Chile/Trees/SnippyClean.sh  /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/core.full.aln  /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/core.full_cleaned.aln
+bash TreeScripts/SnippyClean.sh MolecularClockUTD_V2/core.full.aln  MolecularClockUTD_V2/core.full_cleaned.aln
 ```
-*Run Snippy steps*
-
-
-```
-sbatch -c 64 -t 72:00:00 --mem=64G /home/campbela12/Documents/MRSA_Chile/Trees/RaxML_FirstRun.sh   /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/core.full_cleaned.aln 64 RaxML_SAE_April_V4 100
-```
-*Run RaxML*
-
+*Run Snippy steps: make script based on list of 155 sequences, run script to generate alignment, clean alignment.*
 
 ```
-sbatch  --mem=64G -t 48:00:00 /home/campbela12/Documents/MRSA_Chile/Trees/RunCFML.sh /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/Trees/RAxML_bestTree.RaxML_SAE_April_V4  /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/core.full_cleaned.aln SAE_CFML_V4
+# 64 threads 64G memory
+bash RaxML_FirstRun.sh MolecularClockUTD_V2/core.full_cleaned.aln 64 RaxML_SAE_April_V4 100
+mv MolecularClockUTD_V2/*RaxML_SAE_April_V4* MolecularClockUTD_V2/Trees/
 ```
-*Run ClonalFrameML*
+*Run RaxML before ClonalFrameML.*
 
 
 ```
-sbatch -c 64 -t 72:00:00 --mem=64G /home/campbela12/Documents/MRSA_Chile/Trees/RaxML_FirstRun.sh /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/SAE_CFML_V4.filtered.fasta 64 RaxML_SAE_April_V4_PostCFML 100
 
-sbatch -c 64 -t  24:00:00 --mem=64G /home/campbela12/Documents/MRSA_Chile/Trees/RaxML_Bootstrap.sh /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/SAE_CFML_V4.filtered.fasta 64 RaxML_SAE_April_V4_PostCFML RaxML_SAE_April_V4_PostCFML_BootstrapTree RaxML_SAE_April_V4_PostCFML_BootstrapParts 100
+# 64G memory
+bash TreeScripts/RunCFML.sh MolecularClockUTD_V2/Trees/RAxML_bestTree.RaxML_SAE_April_V4 MolecularClockUTD_V2/core.full_cleaned.aln SAE_CFML_V4
 ```
-*Run RaxML on recombination-masked phylogeny + bootstrapping*
+*Run ClonalFrameML to mask recombinant regions*
+
+
+```
+
+# 64 threads and 64G memory
+bash TreeScripts/RaxML_FirstRun.sh MolecularClockUTD_V2/SAE_CFML_V4.filtered.fasta 64 RaxML_SAE_April_V4_PostCFML 100
+
+# 64 threads and 64G memory
+bash TreeScripts/RaxML_Bootstrap.sh MolecularClockUTD_V2/SAE_CFML_V4.filtered.fasta 64 RaxML_SAE_April_V4_PostCFML RaxML_SAE_April_V4_PostCFML_BootstrapTree RaxML_SAE_April_V4_PostCFML_BootstrapParts 100
+```
+*Run RaxML on recombination-masked phylogeny, conduct bootstrapping*
 
 
 ```
 Rscript MolecularClockTree/BactDating.R
 ```
-
-
 *BactDating using tree from RAxML. Outputs strictgammarun100million_RootFixed_April_V4.rda (R data object) and StrictClock100MillDatesFixed.newick (edited in FigTree v1.4.4 to produce strictClock100MillTree_StrippedDown.newick which replaces HPD with single branch length estimate)*
 
 

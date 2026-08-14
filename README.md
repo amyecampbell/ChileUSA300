@@ -296,17 +296,21 @@ bash TreeScripts/RaxML_Bootstrap.sh MolecularClockUTD_V2/SAE_CFML_V4.filtered.fa
 *Run RaxML on recombination-masked phylogeny, conduct bootstrapping*
 
 
+### Molecular clock analysis 
+
 ```
 Rscript MolecularClockTree/BactDating.R
 ```
 *BactDating using tree from RAxML. Outputs strictgammarun100million_RootFixed_April_V4.rda (R data object) and StrictClock100MillDatesFixed.newick (edited in FigTree v1.4.4 to produce strictClock100MillTree_StrippedDown.newick which replaces HPD with single branch length estimate)*
 
-
+### Ancestral reconstruction of geographic state
 ```
 bash MolecularClockTree/PastML_Run_Full_MolecClock.sh 
 ```
 *Ancestral recon with PastML using BactDating output tree. Outputs DataArchive/Figure 3/fullSAEpastMLoutputMolecClock/ which includes marginal probabilities file marginal_probabilities.character_Location.model_F81.tab needed for visualization*
 
+
+### Visualization of SAE subtree with branch lengths corresponding to time, internal nodes labeled by >50% MPP locations
 
 *Data vis script for molecular clock and PastML results*
 

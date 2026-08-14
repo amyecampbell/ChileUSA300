@@ -312,6 +312,9 @@ bash MolecularClockTree/PastML_Run_Full_MolecClock.sh
 
 ### Visualization of SAE subtree with branch lengths corresponding to time, internal nodes labeled by >50% MPP locations
 
+```
+Rscript Figure3_SAEsubtree.R
+```
 *Data vis script for molecular clock and PastML results*
 
 ## Figure 4 -- Coverage of COMER and Copper Survival 

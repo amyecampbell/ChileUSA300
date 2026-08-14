@@ -253,14 +253,16 @@ Rscript Figure2_Table1_BiancoAlleleTesting.R
 
 ## Figure 3 -- SAE Phylogeny, molecular clock analysis, ancestral reconstruction 
 
-### SAE Tree: Phylogeny, Molecular Clock Analysis, Ancestral Reconstruction
+### Phylogeny
 
 ```
-sbatch /home/campbela12/Documents/MRSA_Chile/Trees/MakeSnippyInput.sh Snippy_ST8_SAE_V4.tab /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/Sequences/
+# Where Sequences/ contains the 155 sequences listed in IsolatesUsed/Figures3_4_SAE Phylogeny 
+bash TreeScripts/MakeSnippyInput.sh Snippy_ST8_SAE_V4.tab MolecularClockUTD_V2/Sequences/
 
-sbatch /home/campbela12/Documents/MRSA_Chile/Trees/MakeSnippyScript.sh /scr1/users/campbela12/ChileST108/MolecularClock/CA12.fasta Snippy_ST8_SAE_V4.tab RunSnippy_ST8_SAE_V4.sh
+bash TreeScripts/MakeSnippyScript.sh CA12.fasta Snippy_ST8_SAE_V4.tab RunSnippy_ST8_SAE_V4.sh
 
-sbatch -c 16 --mem=20G -t 12:00:00 RunSnippy_ST8_SAE_V4.sh
+# 16 threads and 20G memory
+bash TreeScripts/RunSnippy_ST8_SAE_V4.sh
 
 mv *core*  /scr1/users/campbela12/ChileST108/MolecularClockUTD_V2/
 
@@ -290,7 +292,7 @@ sbatch -c 64 -t  24:00:00 --mem=64G /home/campbela12/Documents/MRSA_Chile/Trees/
 
 
 ```
-MolecularClockTree/BactDating.R
+Rscript MolecularClockTree/BactDating.R
 ```
 
 
@@ -298,7 +300,7 @@ MolecularClockTree/BactDating.R
 
 
 ```
-MolecularClockTree/PastML_Run_Full_MolecClock.sh 
+bash MolecularClockTree/PastML_Run_Full_MolecClock.sh 
 ```
 *Ancestral recon with PastML using BactDating output tree. Outputs DataArchive/Figure 3/fullSAEpastMLoutputMolecClock/ which includes marginal probabilities file marginal_probabilities.character_Location.model_F81.tab needed for visualization*
 

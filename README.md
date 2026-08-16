@@ -45,8 +45,11 @@ bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ChileST108/Tree03_2024/Seq
 # StaphNET ST8 genomes
 bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ChileST108/StaphNET/contigs/ /scr1/users/campbela12/ChileST108/StaphNET/CheckM/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ChileST108/StaphNET/CheckMStaphNET_ST8.txt
 
-
 ```
+*Run checkM with S aureus markers.*
+
+<br/>
+
 ### MASH 
 
 ```
@@ -63,11 +66,12 @@ awk '{ if ($2 < 200000) { print $3} }' MASHPlasmids_StartWithUnnamed.txt > MASHP
 
 cat MASHPlasmids_StartWithP_Less200kb.txt MASHPlasmids_StartWithUnnamed_Less200kb.txt >> MASH_likely_plasmids.txt
 
-<br/>
-
 ```
 
+
 *Make Mashinspected.tab, which gives some more taxonomic context to the hits (tells us the full name of the sequence). This will allow us to make sense of the non-aureus hits we get during MASH contamination check step-- e.g., is it mapping to S. haemolyticus because it's contaminated/the wrong species? Or is it mapping to a very closely related plasmid in S. haemolyticus? Then, make a list of hit sources that are likely plasmids (start with the lowercase p and are less than 200kb, start with 'unnamed' and are less than 200kb (saved in DataArchive/MashFiles/MASH_likely_plasmids.txt)*
+
+<br/>
 
 ```
 bash Assembly_QC/RunMash.sh
@@ -98,6 +102,8 @@ SCL15359/PP.3552 (2022 genome),
 SCL16696/PP.3654  (2022 genome),
 SCL16471/PP.3646 (removed for metadata mapping uncertainty)* 
 
+<br/>
+
 ### TreeShrink
 
 ```
@@ -107,6 +113,7 @@ sh Assembly_QC//RunTreeShrink.sh
 
 *Root a preliminary phylogeny and then use the resulting phylogeny to identify outlier branches. Note: this step was actually performed after the original run of the ST8 phylogeny scripts, and was used to identify that ERR9884473 had an outlier branch length(subsequently removed).*
 
+<br/>
 
 ## Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
 
@@ -128,6 +135,7 @@ PP.3555/SCL15367 -> ST105
 PP.3589/SCL15881 -> ST105
 PP.3598/SCL15958 -> ST5*
 
+<br/>
 
 ### CURED to identify diagnostic restriction digests for USA300-SAE (via https://github.com/microbialARC/CURED)
 
@@ -147,6 +155,8 @@ CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensit
 ```
 *Rerun CURED with the updated specificity threshold(99%).*
 
+<br/>
+
 ```
 for file in $(cat DataArchive/CURED/local/kmer_analysis/specificity_0/UniqueKmers.txt); do grep -w "$file" DataArchive/CURED/local/kmer_analysis/specificity_99/temp_files/*.pyseer; done > DataArchive/CURED/local/specificity_99/grepped_output.txt
 
@@ -155,6 +165,7 @@ CURED/parse_grepped_op.py DataArchive/CURED/local/kmer_analysis/specificity_99/g
 CURED/sort_cases_and_controls.py case_control.csv parsed_grepped_output.txt > DataArchive/CURED/local/kmer_analysis/specificity_99/controls_breaking_specificity.txt
  />
 ```
+<br/>
 
 
 ### Visualization
@@ -164,6 +175,8 @@ Rscript Fig1a-c_PctSTbyYear.R
 ```
 
 *Produce figure 1A-C with % ST and resistance data by year (stored in DataArchive/Susceptibility_ST_Data_1999_2022.csv), SAE by year (based on ST8 tree-assigned clades stored in DataArchive/Figure2/TreeBasedCladesST8March_V2.csv and CURED estimate of 22.8% in 2023).*
+
+<br/>
 
 ## Figure 2 -- ST8 Phylogeny
 
@@ -197,6 +210,7 @@ bash TreeScripts/RaxML_FirstRun.sh  /scr1/users/campbela12/ChileST108/ST8FullTre
 
 *Run RaxML with 100 random starts and GTRGAMMA model*
 
+<br/>
 
 ### ClonalFrameML 1.12 
 
@@ -208,6 +222,8 @@ bash TreeScripts/RunCFML.sh /scr1/users/campbela12/ChileST108/ST8FullTree_04_202
 mv *ST8AprilCFML* /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/
 ```
 *Run clonalframeML on snippy alignment and ML phylogeny to mask recombinant regions. Outputs ST8AprilCFML.filtered.fasta*
+
+<br/>
 
 ###  RAxML 8.2.13 following clonal frame ML 
 

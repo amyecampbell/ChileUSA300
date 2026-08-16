@@ -132,23 +132,33 @@ PP.3598/SCL15958 -> ST5*
 ### CURED to identify diagnostic restriction digests for USA300-SAE (via https://github.com/microbialARC/CURED)
 
 ```
- CURED_Main.py –case_control_file case_control.csv –extension fasta –genomes genomes/ 
+CURED_Main.py –case_control_file case_control.csv –extension fasta –genomes genomes/ 
 ```
 
-* Initially ran CURED main script with default 100/100 specificity/sensitivity cutoff, and did not find any 100% specific k-mers.*
+* Initially run CURED main script with default 100/100 specificity/sensitivity cutoff with DataArchive/CURED/local/case_control.csv input and did not find any 100% specific k-mers.*
 
 ```
  CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 0 –extension fasta
 ```
+ *Rerun  with 0 specificity cutoff to identify non-specific k-mers. Using the k-mers of varying specificity listed in DataArchive/CURED/local/kmer_analysis/specificity_0/UniqueKmers.txt, filter report to identify those present in the fewest control genomes. Calculate corresponding specificity threshold (99%).*
 
- *Re-ran with 0 specificity cutoff to identify non-specific k-mers*
 ```
-CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 0 –extension fasta
+CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 99 –extension fasta
 ```
-*Additional CURED steps here*
+*Rerun CURED with the updated specificity threshold(99%).*
+
+```
+for file in $(cat DataArchive/CURED/local/kmer_analysis/specificity_0/UniqueKmers.txt); do grep -w "$file" DataArchive/CURED/local/kmer_analysis/specificity_99/temp_files/*.pyseer; done > DataArchive/CURED/local/specificity_99/grepped_output.txt
+
+CURED/parse_grepped_op.py DataArchive/CURED/local/kmer_analysis/specificity_99/grepped_output.txt > DataArchive/CURED/local/kmer_analysis/specificity_99/parsed_grepped_output.txt
+
+CURED/sort_cases_and_controls.py case_control.csv parsed_grepped_output.txt > DataArchive/CURED/local/kmer_analysis/specificity_99/controls_breaking_specificity.txt
+ />
+```
+
 
 ### Visualization
-
+`
 ```
 Rscript Fig1a-c_PctSTbyYear.R
 ```

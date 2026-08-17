@@ -1,7 +1,7 @@
 # ChileUSA300
 Scripts used in USA300 SAE in Chile paper -- original versions of many of these scripts are in MRSA_Chile repo
 
-## 0. Assembly, QC, basic stats
+## Assembly, QC, basic stats
 
 <br/>
 
@@ -115,7 +115,7 @@ sh Assembly_QC//RunTreeShrink.sh
 
 <br/>
 
-## 1. Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
+## Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
 
 ### Sequence typing
 
@@ -281,7 +281,7 @@ Rscript Figure2_Table1_BiancoAlleleTesting.R
 <br/>
 
 
-## 3. Figure 3: SAE Phylogeny, molecular clock analysis, ancestral reconstruction 
+## Figure 3: SAE Phylogeny, molecular clock analysis, ancestral reconstruction 
 
 <br/>
 
@@ -362,7 +362,7 @@ Rscript Figure3_SAEsubtree.R
 
 <br/>
 
-## Figure 4 -- Coverage of COMER and Copper Survival 
+## Figure 4: Coverage of COMER and Copper Survival 
 
 
 ### COMER analysis 

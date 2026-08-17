@@ -163,7 +163,6 @@ for file in $(cat DataArchive/CURED/local/kmer_analysis/specificity_0/UniqueKmer
 CURED/parse_grepped_op.py DataArchive/CURED/local/kmer_analysis/specificity_99/grepped_output.txt > DataArchive/CURED/local/kmer_analysis/specificity_99/parsed_grepped_output.txt
 
 CURED/sort_cases_and_controls.py case_control.csv parsed_grepped_output.txt > DataArchive/CURED/local/kmer_analysis/specificity_99/controls_breaking_specificity.txt
- />
 ```
 <br/>
 
@@ -227,14 +226,14 @@ mv *ST8AprilCFML* /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/
 
 ###  RAxML 8.2.13 following clonal frame ML 
 
-*Run RAxML on recombination-masked snippy alignment*
-
 ```
 # Provide with 72 threads and 90G memory via sbatch -c 72 ---mem=90G 
 bash TreeScripts/RaxML_FirstRun.sh  /scr1/users/campbela12/ChileST108/ST8FullTree_04_2024/ST8AprilCFML.filtered.fasta 72 RaxML_ST8_April_PostCFML 100
 
 ```
 *Run RaxML on recombination-masked phylogeny*
+
+<br/>
 
 
 ```
@@ -244,7 +243,7 @@ TreeScripts/RaxML_Bootstrap.sh /scr1/users/campbela12/ChileST108/ST8FullTree_04_
 ```
 *Run bootstrapping support with 100 partitions*
 
-
+<br/>
 
 ### Identify presence of [Bianco et al. (2023)'s](https://doi.org/10.3389/fcimb.2023.1081070) diagnostic alleles for USA300 clades in ST8 tree genomes
 
@@ -253,6 +252,9 @@ TreeScripts/RaxML_Bootstrap.sh /scr1/users/campbela12/ChileST108/ST8FullTree_04_
 bash Bakta_ByFileList.sh SequenceList.txt /scr1/users/campbela12/ChileST108/Bakta/ /scr1/users/campbela12/ChileST108/GFFs/ /scr1/users/campbela12/ChileST108/ST8Genomes/
 ```
 *Annotate genomes on ST8 tree*
+
+<br/>
+
 
 ```
 # ST8 genomes from 2022 collection
@@ -270,13 +272,18 @@ python3 AlleleTyping/Allele_Typing_BiancoEtAl_AllST8s.py
 ```
 *Run Allele typing script to type by Bianco et al. Alleles -- outputs presence (1) or absence(0) of each allele in each genome*
 
+<br/>
+
 ```
 Rscript Figure2_Table1_BiancoAlleleTesting.R
 ```
 *Make mappings of leaf to Bianco et al. (2023) allele presence for ITOL visualization, calculate sensitivity/specificity of alleles.*
+<br/>
 
 
 ## Figure 3 -- SAE Phylogeny, molecular clock analysis, ancestral reconstruction 
+
+<br/>
 
 ### Phylogeny
 
@@ -295,12 +302,16 @@ bash TreeScripts/SnippyClean.sh MolecularClockUTD_V2/core.full.aln  MolecularClo
 ```
 *Run Snippy steps: make script based on list of 155 sequences, run script to generate alignment, clean alignment.*
 
+<br/>
+
 ```
 # 64 threads 64G memory
 bash RaxML_FirstRun.sh MolecularClockUTD_V2/core.full_cleaned.aln 64 RaxML_SAE_April_V4 100
 mv MolecularClockUTD_V2/*RaxML_SAE_April_V4* MolecularClockUTD_V2/Trees/
 ```
 *Run RaxML before ClonalFrameML.*
+
+<br/>
 
 
 ```
@@ -309,6 +320,8 @@ mv MolecularClockUTD_V2/*RaxML_SAE_April_V4* MolecularClockUTD_V2/Trees/
 bash TreeScripts/RunCFML.sh MolecularClockUTD_V2/Trees/RAxML_bestTree.RaxML_SAE_April_V4 MolecularClockUTD_V2/core.full_cleaned.aln SAE_CFML_V4
 ```
 *Run ClonalFrameML to mask recombinant regions*
+
+<br/>
 
 
 ```
@@ -321,6 +334,7 @@ bash TreeScripts/RaxML_Bootstrap.sh MolecularClockUTD_V2/SAE_CFML_V4.filtered.fa
 ```
 *Run RaxML on recombination-masked phylogeny, conduct bootstrapping*
 
+<br/>
 
 ### Molecular clock analysis 
 
@@ -335,6 +349,7 @@ bash MolecularClockTree/PastML_Run_Full_MolecClock.sh
 ```
 *Ancestral recon with PastML using BactDating output tree. Outputs DataArchive/Figure 3/fullSAEpastMLoutputMolecClock/ which includes marginal probabilities file marginal_probabilities.character_Location.model_F81.tab needed for visualization*
 
+<br/>
 
 ### Visualization of SAE subtree with branch lengths corresponding to time, internal nodes labeled by >50% MPP locations
 
@@ -342,6 +357,8 @@ bash MolecularClockTree/PastML_Run_Full_MolecClock.sh
 Rscript Figure3_SAEsubtree.R
 ```
 *Data vis script for molecular clock and PastML results*
+
+<br/>
 
 ## Figure 4 -- Coverage of COMER and Copper Survival 
 

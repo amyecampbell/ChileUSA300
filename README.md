@@ -122,7 +122,7 @@ sh Assembly_QC//RunTreeShrink.sh
 ```
 bash AlleleTyping/SequenceType.sh ST105/contigs_Feb/ ST105/ST105Tree_02_2024/ MLST_FebGenomes.txt
 
-bash AlleleTyping/SequenceType.sh ST105/contigs/ ST105/
+bash AlleleTyping/SequenceType.sh ST105/contigs/ /scr1/users/campbela12/ST105/ MLST_Nov23.tsv
 
 # Run later (after construction of ST8 phylogeny) to determine accuracy of CURED method
 bash AlleleTyping/SequenceType.sh /scr1/users/campbela12/ChileST108/CURED/Contigs2023/SCLs/  /scr1/users/campbela12/ChileST108/CURED/ SCLmlst.txt 

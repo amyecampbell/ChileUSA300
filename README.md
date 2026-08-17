@@ -143,7 +143,7 @@ PP.3598/SCL15958 -> ST5*
 CURED_Main.py –case_control_file case_control.csv –extension fasta –genomes genomes/ 
 ```
 
-* Initially run CURED main script with default 100/100 specificity/sensitivity cutoff with DataArchive/CURED/local/case_control.csv input and did not find any 100% specific k-mers.*
+*Initially run CURED main script with default 100/100 specificity/sensitivity cutoff with DataArchive/CURED/local/case_control.csv input and did not find any 100% specific k-mers.*
 
 ```
  CURED_Main.py –case_control_file case_control.csv –genomes genomes/ --sensitivity 100 –specificity 0 –extension fasta

@@ -40,10 +40,10 @@ bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ST105/contigs/ /scr1/users
 bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ST105/contigs_Feb/ /scr1/users/campbela12/ST105/CheckMoutputFeb/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ST105/CheckM_Feb24
 
 # ST8 genomes (non-StaphNET)
-bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ChileST108/Tree03_2024/Sequences/ /scr1/users/campbela12/ChileST108/Tree03_2024/CheckMoutput/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ChileST108/Tree03_2024/CheckM.txt
+bash Assembly_QC/CheckMCall.sh Tree03_2024/Sequences/ Tree03_2024/CheckMoutput/ /ST105/StaphAureusCheckMmarkers Tree03_2024/CheckM.txt
 
 # StaphNET ST8 genomes
-bash Assembly_QC/CheckMCall.sh /scr1/users/campbela12/ChileST108/StaphNET/contigs/ /scr1/users/campbela12/ChileST108/StaphNET/CheckM/ /scr1/users/campbela12/ST105/StaphAureusCheckMmarkers /scr1/users/campbela12/ChileST108/StaphNET/CheckMStaphNET_ST8.txt
+bash Assembly_QC/CheckMCall.sh StaphNET/contigs/ StaphNET/CheckM /ST105/StaphAureusCheckMmarkers StaphNET/CheckMStaphNET_ST8.txt
 
 ```
 *Run checkM with S aureus markers.*
@@ -83,11 +83,11 @@ bash Assembly_QC/RunMash.sh
 <br/>
 
 ```
-python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_Genomes_Tree "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/likelyPlasmids_Exclude_MASH.txt  /Users/campbela12/Documents/Planet/ST105/ST8/ST8_QC/MASHfullTree/
+python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_Genomes_Tree "Staphylococcus_aureus" --exclude_names_file ST105/QC_files_all279/likelyPlasmids_Exclude_MASH.txt  ST105/ST8/ST8_QC/MASHfullTree/
 
-python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p MRSAChileAll_ExcludeLikelPlasmids "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MashOutputs_All
+python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p MRSAChileAll_ExcludeLikelPlasmids "Staphylococcus_aureus" --exclude_names_file ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt ST105/QC_files_all279/MASH/MashOutputs_All
 
-python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_staphNET "Staphylococcus_aureus" --exclude_names_file /Users/campbela12/Documents/Planet/ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt  /Users/campbela12/Documents/Planet/ST105/ST8/ST8_StaphNET-SA-First-Survey/MASHStaphNET
+python3 Assembly_QC/Mash_contamination_checker_ModifiedAEC.py -i .95 -s 100 -p ST8_staphNET "Staphylococcus_aureus" --exclude_names_file ST105/QC_files_all279/MASH/MASH_likely_plasmids.txt  ST105/ST8/ST8_StaphNET-SA-First-Survey/MASHStaphNET
 ```
 
 *Following mash screen, run contamination checker (A. Moustafa's script, modified by AEC), excluding likely plasmids on the 279 2022 genomes, the StapNET genomes, and all genomes included in the ST8 tree. After check for MASH contamination, CheckM contamination and completeness (<5% contamination, > 95% completeness), genome size (within 2 SDs of mean length in Genbank, 2863292), the following genomes which had initially been included were removed from analysis:
@@ -120,9 +120,9 @@ sh Assembly_QC//RunTreeShrink.sh
 ### Sequence typing
 
 ```
-bash AlleleTyping/SequenceType.sh /scr1/users/campbela12/ST105/contigs_Feb/ /scr1/users/campbela12/ST105/ST105Tree_02_2024/ MLST_FebGenomes.txt
+bash AlleleTyping/SequenceType.sh ST105/contigs_Feb/ ST105/ST105Tree_02_2024/ MLST_FebGenomes.txt
 
-bash AlleleTyping/SequenceType.sh /scr1/users/campbela12/ST105/contigs/ /scr1/users/campbela12/ST105/
+bash AlleleTyping/SequenceType.sh ST105/contigs/ ST105/
 
 # Run later (after construction of ST8 phylogeny) to determine accuracy of CURED method
 bash AlleleTyping/SequenceType.sh /scr1/users/campbela12/ChileST108/CURED/Contigs2023/SCLs/  /scr1/users/campbela12/ChileST108/CURED/ SCLmlst.txt 

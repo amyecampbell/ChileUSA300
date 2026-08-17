@@ -336,6 +336,8 @@ bash TreeScripts/RaxML_Bootstrap.sh MolecularClockUTD_V2/SAE_CFML_V4.filtered.fa
 
 <br/>
 
+
+
 ### Molecular clock analysis 
 
 ```
@@ -362,11 +364,28 @@ Rscript Figure3_SAEsubtree.R
 
 <br/>
 
-## Figure 4: Coverage of COMER and Copper Survival 
+## Figure 4: Coverage of COMER and Copper Survival/growth
 
 
 ### COMER analysis 
-*Run BLAST*
-*Run BLAST*
-*ReadMapAllGenomes.sh to align reads directly to SCCmec IVc --> COMER reference*
-*R script to visualize read depth aligned to SCC mec through COMER*
+
+```
+bash COMER/BlastCOMER_ST8s.sh 
+```
+*BLASTN search of each genome in the ST8 tree (Figure 2) against the CA12 reference for COMER.*
+
+<br/>
+
+```
+Rscript Figure4_COMERCovg.R
+```
+*Visualize COMER coverage alongside SAE tree.*
+
+### Copper survival/growth analysis 
+
+```
+Rscript Figure4_CopperExperiments.R
+
+```
+*Visualize copper water survival and copper RPMI-AA growth*
+

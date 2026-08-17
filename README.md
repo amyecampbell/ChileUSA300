@@ -1,7 +1,7 @@
 # ChileUSA300
 Scripts used in USA300 SAE in Chile paper -- original versions of many of these scripts are in MRSA_Chile repo
 
-## Assembly, QC, basic stats
+## 0. Assembly, QC, basic stats
 
 <br/>
 
@@ -115,7 +115,7 @@ sh Assembly_QC//RunTreeShrink.sh
 
 <br/>
 
-## Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
+## 1. Figure 1 : Temporal analysis of MLST, antibiotic resistance, SAE over time
 
 ### Sequence typing
 
@@ -177,7 +177,7 @@ Rscript Fig1a-c_PctSTbyYear.R
 
 <br/>
 
-## Figure 2 -- ST8 Phylogeny
+## 2. Figure 2: ST8 Phylogeny
 
 ### Snippy 4.6.0
 ```
@@ -281,7 +281,7 @@ Rscript Figure2_Table1_BiancoAlleleTesting.R
 <br/>
 
 
-## Figure 3 -- SAE Phylogeny, molecular clock analysis, ancestral reconstruction 
+## 3. Figure 3: SAE Phylogeny, molecular clock analysis, ancestral reconstruction 
 
 <br/>
 
@@ -343,6 +343,8 @@ Rscript MolecularClockTree/BactDating.R
 ```
 *BactDating using tree from RAxML. Outputs strictgammarun100million_RootFixed_April_V4.rda (R data object) and StrictClock100MillDatesFixed.newick (edited in FigTree v1.4.4 to produce strictClock100MillTree_StrippedDown.newick which replaces HPD with single branch length estimate)*
 
+<br/>
+
 ### Ancestral reconstruction of geographic state
 ```
 bash MolecularClockTree/PastML_Run_Full_MolecClock.sh 
@@ -361,6 +363,7 @@ Rscript Figure3_SAEsubtree.R
 <br/>
 
 ## Figure 4 -- Coverage of COMER and Copper Survival 
+
 
 ### COMER analysis 
 *Run BLAST*
